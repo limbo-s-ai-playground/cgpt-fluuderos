@@ -1,0 +1,134 @@
+/* Fluuder OS — always-on Start dock + themes */
+:root{
+  --radius:16px; --shadow: 0 20px 60px rgba(0,0,0,.45), 0 2px 8px rgba(0,0,0,.2);
+  --text:#eef2ff; --muted:#c7d2e6; --border: rgba(255,255,255,.14);
+  --chrome: linear-gradient(#628ad0,#305087);
+  --chrome-border:#0b1e3a;
+  --glass: rgba(22,25,40,.55);
+  --taskbar: rgba(15,18,30,.7);
+  --taskbar-line: rgba(255,255,255,.15);
+  --win-bg: linear-gradient(180deg, rgba(255,255,255,.22), rgba(255,255,255,.08));
+  --accent:#3ba3ff; --danger:#ff5d5d; --ok:#40d17e;
+  --font:"Segoe UI", system-ui, -apple-system, Inter, Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  --bg: #0a1525;
+  --wallpaper1: radial-gradient(1200px 600px at 20% 10%, rgba(76,130,180,.45), transparent 60%),
+                radial-gradient(1000px 600px at 80% 20%, rgba(83,160,238,.35), transparent 60%),
+                radial-gradient(1400px 900px at 50% 80%, rgba(34,79,142,.5), rgba(9,20,36,.9) 70%), #0a1525;
+}
+
+/* Themes (toggle via html[data-theme]) */
+html[data-theme="ocean"]{
+  --accent:#3ba3ff; --bg:#0a1525; --chrome: linear-gradient(#628ad0,#305087);
+}
+html[data-theme="midnight"]{
+  --accent:#9b8cff; --bg:#0b0b16; --chrome: linear-gradient(#5b5c90,#2c2d5a);
+  --wallpaper1: radial-gradient(1000px 700px at 20% 20%, rgba(139,92,246,.28), transparent 60%),
+                radial-gradient(1200px 800px at 80% 0%, rgba(59,130,246,.18), transparent 60%),
+                #0b0b16;
+}
+html[data-theme="sunset"]{
+  --accent:#ff8a3b; --bg:#1b0e12; --chrome: linear-gradient(#ff9a6a,#a64a39);
+  --wallpaper1: radial-gradient(1200px 700px at 20% 10%, rgba(255,138,59,.35), transparent 60%),
+                radial-gradient(1000px 600px at 80% 20%, rgba(253,164,175,.25), transparent 60%),
+                linear-gradient(#1b0e12,#2b1620);
+}
+html[data-theme="mint"]{
+  --accent:#34d399; --bg:#081913; --chrome: linear-gradient(#53c7a3,#1e7a61);
+  --wallpaper1: radial-gradient(1200px 700px at 30% 20%, rgba(16,185,129,.32), transparent 60%),
+                radial-gradient(1000px 600px at 80% 10%, rgba(59,130,246,.18), transparent 60%),
+                #081913;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0; font-family:var(--font); color:var(--text);
+  user-select:none; overflow:hidden; background: var(--wallpaper1);
+}
+
+/* Start dock (always visible) */
+.start-dock{
+  position:fixed; top:0; left:0; bottom:56px; width:280px; padding:12px;
+  display:flex; flex-direction:column; gap:12px;
+  background: rgba(20,24,40,.45); border-right:1px solid var(--border);
+  backdrop-filter: blur(20px) saturate(130%); z-index:20;
+}
+.brand{display:flex; align-items:center; gap:10px; padding:8px 10px; border-radius:12px; background:rgba(255,255,255,.06); border:1px solid var(--border)}
+.brand img{width:28px; height:28px}
+.brand .tag{font-size:.8rem; opacity:.9}
+.start-nav{display:flex; flex-direction:column; gap:8px}
+.start-item{
+  display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:12px;
+  background:rgba(255,255,255,.06); border:1px solid var(--border); color:var(--text);
+  cursor:pointer; text-align:left;
+}
+.start-item img{width:20px; height:20px}
+.start-footer{margin-top:auto; display:flex; justify-content:space-between; align-items:center}
+.start-pwr{display:flex; align-items:center; gap:8px; padding:8px 12px; border-radius:12px; border:1px solid var(--border); background:linear-gradient(#e87171,#b83939); color:#fff; cursor:pointer}
+
+/* Desktop area leaves room for start-dock */
+.desktop{position:relative; width:calc(100vw - 280px); height:calc(100vh - 56px); margin-left:280px; padding:20px}
+.desktop-icons{display:grid; grid-template-columns: repeat(auto-fill, minmax(92px,1fr)); gap:18px; width:400px}
+.icon{display:flex; flex-direction:column; align-items:center; gap:6px; width:92px; padding:8px 6px; background:transparent; border:1px solid transparent; color:var(--text); cursor:default; border-radius:10px}
+.icon:focus,.icon:hover{background:rgba(255,255,255,.08); outline:none; border-color:rgba(255,255,255,.18)}
+.icon img{width:42px; height:42px; filter: drop-shadow(0 2px 6px rgba(0,0,0,.4));}
+.icon span{font-size:.86rem; text-align:center; text-shadow:0 2px 2px rgba(0,0,0,.35)}
+
+/* Taskbar */
+.taskbar{
+  position:fixed; left:0; right:0; bottom:0; height:56px; display:flex; align-items:center; gap:10px;
+  padding:6px 10px; background:var(--taskbar); border-top:1px solid var(--taskbar-line); backdrop-filter: blur(10px);
+}
+.task-area{display:flex; gap:8px; align-items:center; flex:1; min-width:0; margin-left:280px}
+.task-button{
+  display:inline-flex; align-items:center; gap:8px; min-width:120px; max-width:220px;
+  padding:8px 12px; border-radius:12px; border:1px solid rgba(255,255,255,.15); background:rgba(255,255,255,.08);
+  box-shadow: var(--shadow); overflow:hidden; white-space:nowrap; text-overflow:ellipsis; cursor:pointer;
+}
+.task-button.active{outline:2px solid var(--accent)}
+.tray{display:flex; align-items:center; gap:12px; padding-left:8px}
+.clock{font-variant-numeric:tabular-nums; opacity:.9}
+
+/* Windows */
+.window{
+  position:absolute; top:120px; left:120px; width:640px; height:440px; border-radius:var(--radius);
+  background: var(--win-bg); border:1px solid rgba(255,255,255,.2); box-shadow: var(--shadow); overflow:hidden;
+  backdrop-filter: blur(10px) saturate(140%);
+}
+.window.maximized{top:0 !important; left:0 !important; width:calc(100vw - 280px) !important; height:calc(100vh - 56px) !important; border-radius:0}
+.titlebar{display:flex; align-items:center; justify-content:space-between; padding:8px 10px; background:var(--chrome); color:#fff; border-bottom:1px solid var(--chrome-border)}
+.title{display:flex; align-items:center; gap:8px; font-weight:600}
+.title-icon{width:18px; height:18px}
+.window-controls{display:flex; align-items:center; gap:6px}
+.btn{width:28px; height:28px; border-radius:6px; border:1px solid rgba(255,255,255,.25); background:rgba(255,255,255,.18); cursor:pointer}
+.btn.close{background:linear-gradient(#ff8080,#d84040); border-color:rgba(0,0,0,.3)}
+.content{height:calc(100% - 46px); background:rgba(12,16,28,.55); padding:0; overflow:auto}
+.content-inner{padding:14px 16px}
+.resizer.resizer-se{position:absolute; right:0; bottom:0; width:18px; height:18px; cursor:nwse-resize; background:linear-gradient(135deg, transparent 50%, rgba(255,255,255,.35) 50%)}
+
+/* Apps */
+.app-notepad{display:flex; flex-direction:column; height:100%}
+.app-notepad .toolbar{display:flex; gap:8px; padding:10px; border-bottom:1px solid rgba(255,255,255,.14); background:rgba(255,255,255,.05)}
+.app-notepad textarea{flex:1; width:100%; padding:12px; border:0; outline:0; resize:none; background:transparent; color:var(--text); font:14px/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace}
+
+.info-list{display:grid; grid-template-columns: max-content 1fr; gap:6px 16px}
+.info-list dt{opacity:.8}
+.info-list dd{margin:0}
+
+.theme-grid{display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap:10px}
+.swatch{
+  display:flex; padding:10px; gap:10px; align-items:center; border:1px solid var(--border); border-radius:12px;
+  background:rgba(255,255,255,.06); cursor:pointer;
+}
+.swatch .chip{width:28px; height:28px; border-radius:8px; border:1px solid rgba(255,255,255,.25)}
+.swatch .name{font-weight:600}
+
+.browser-addr{display:flex; gap:6px; padding:8px; border-bottom:1px solid rgba(255,255,255,.14); background:rgba(255,255,255,.05)}
+.browser-addr input{flex:1; padding:8px 10px; border-radius:8px; border:1px solid var(--border); background:#0b1424; color:var(--text)}
+.browser-viewport{width:100%; height:100%; border:0}
+
+@media (max-width: 820px){
+  .start-dock{width:220px}
+  .desktop{width:calc(100vw - 220px)}
+  .task-area{margin-left:220px}
+}

@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en" data-theme="ocean">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fluuder OS (Web)</title>
+  <meta name="description" content="Fluuder OS — a playful, themeable, Windows‑like web desktop for GitHub Pages." />
+  <link rel="icon" href="assets/fluuder.svg" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <aside class="start-dock" aria-label="Start Panel">
+    <div class="brand">
+      <img src="assets/fluuder.svg" alt="" />
+      <div class="brand-text">
+        <strong>Fluuder OS</strong>
+        <span class="tag">web edition</span>
+      </div>
+    </div>
+    <nav class="start-nav" role="menu">
+      <button class="start-item" data-app="files" role="menuitem">
+        <img src="assets/folder.svg" alt="" /> Files
+      </button>
+      <button class="start-item" data-app="notepad" role="menuitem">
+        <img src="assets/notepad.svg" alt="" /> Notepad
+      </button>
+      <button class="start-item" data-app="browser" role="menuitem">
+        <img src="assets/internet.svg" alt="" /> Web
+      </button>
+      <button class="start-item" data-app="themes" role="menuitem">
+        <img src="assets/paint.svg" alt="" /> Themes
+      </button>
+      <button class="start-item" data-app="about" role="menuitem">
+        <img src="assets/info.svg" alt="" /> About
+      </button>
+      <button class="start-item" data-app="recycle" role="menuitem">
+        <img src="assets/recycle.svg" alt="" /> Recycle Bin
+      </button>
+    </nav>
+    <div class="start-footer">
+      <button class="start-pwr" id="shutdownBtn">
+        <img src="assets/power.svg" alt="" /> Power
+      </button>
+    </div>
+  </aside>
+
+  <div id="desktop" class="desktop" role="application" tabindex="0" aria-label="Desktop">
+    <div class="desktop-icons" role="list" aria-label="Desktop icons">
+      <button class="icon" data-app="files" role="listitem">
+        <img src="assets/folder.svg" alt="" />
+        <span>Files</span>
+      </button>
+      <button class="icon" data-app="notepad" role="listitem">
+        <img src="assets/notepad.svg" alt="" />
+        <span>Notepad</span>
+      </button>
+      <button class="icon" data-app="themes" role="listitem">
+        <img src="assets/paint.svg" alt="" />
+        <span>Themes</span>
+      </button>
+      <button class="icon" data-app="about" role="listitem">
+        <img src="assets/info.svg" alt="" />
+        <span>About</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="taskbar" role="toolbar" aria-label="Taskbar">
+    <div id="taskArea" class="task-area" aria-live="polite"></div>
+    <div class="tray">
+      <span id="clock" class="clock" aria-label="Clock" aria-live="polite"></span>
+    </div>
+  </div>
+
+  <template id="windowTemplate">
+    <div class="window" role="dialog" aria-modal="false">
+      <div class="titlebar">
+        <div class="title">
+          <img class="title-icon" alt="" />
+          <span class="title-text"></span>
+        </div>
+        <div class="window-controls">
+          <button class="btn min" title="Minimize" aria-label="Minimize">—</button>
+          <button class="btn max" title="Maximize" aria-label="Maximize">▢</button>
+          <button class="btn close" title="Close" aria-label="Close">✕</button>
+        </div>
+      </div>
+      <div class="content"></div>
+      <div class="resizer resizer-se" aria-hidden="true"></div>
+    </div>
+  </template>
+
+  <script src="app.js"></script>
+</body>
+</html>
